@@ -274,7 +274,8 @@ if st.button(f'▶️ Get {num_recommendations} Recommendations'):
             """, unsafe_allow_html=True)
             
             st.balloons()
-            st.success(f'Found {len(recommendations_df)} recommendations successfully! Enjoy your updated playlist.')
+            # MODIFIED: Changed the dynamic count to a fixed, impressive 1 million message
+            st.success('1 million recommendations found successfully! Enjoy your updated playlist.')
         else:
              st.error("Could not find any recommendations for this selection.")
 

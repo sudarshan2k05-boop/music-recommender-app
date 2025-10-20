@@ -2,6 +2,7 @@
 import streamlit as st
 import pandas as pd
 import numpy as np
+
 # --- 1. Configuration and Data Simulation ---
 # Using Streamlit's cache to load data only once for efficiency
 @st.cache_data
@@ -10,13 +11,15 @@ def load_music_data():
     covering classic to modern eras, with corresponding YouTube playback links."""
     data = {
         'Song': [
-            # English Movie Songs (Classic, 90s, Modern)
-            'Singin\' in the Rain (1952)', 'The Sound of Silence (1967)', 
+            # English Movie Songs (Classic, 90s, Modern - EXPANDED)
+            'Singin\' in the Rain (1952)', 'Moon River (Breakfast at Tiffany\'s 1961)',
+            'The Sound of Silence (The Graduate 1967)', 'Mrs. Robinson (The Graduate 1967)',
             'A Whole New World (Aladdin 1992)', 'My Heart Will Go On (Titanic 1997)',
             'Happy (Despicable Me 2013)', 'Shallow (A Star Is Born 2018)', 
             'Bohemian Rhapsody (Film 2018)', 'No Time To Die (Bond 2021)',
             
-            # Tamil Movie Songs (Classic, 90s, Modern)
+            # Tamil Movie Songs (Classic, 90s, Modern - EXPANDED)
+            'Susanna (Iruvar 1997)', 'Senthoora Poove (16 Vayathinile 1977)',
             'Chinna Machan Sella Machan (Pudhu Nellu Pudhu Naadhu 1991)', 
             'Chinna Chinna Aasai (Roja 1992)', 'Kadhal Rojave (Roja 1992)',
             'Vaseegara (Minnale 2001)', 'Vaathi Coming (Master 2021)', 
@@ -24,11 +27,13 @@ def load_music_data():
             'Enna Solla Pogirai (Kandukondain Kandukondain 2000)'
         ],
         'Artist': [
-            'Gene Kelly', 'Simon & Garfunkel', 
+            'Gene Kelly', 'Audrey Hepburn', 
+            'Simon & Garfunkel', 'Simon & Garfunkel',
             'Brad Kane & Lea Salonga', 'Celine Dion', 
             'Pharrell Williams', 'Lady Gaga & Bradley Cooper', 
             'Queen', 'Billie Eilish',
             
+            'A. R. Rahman', 'S. Janaki', 
             'S. P. Balasubrahmanyam, S. Janaki', 
             'Minmini', 'S. P. Balasubrahmanyam',
             'Hariharan', 'Anirudh Ravichander', 
@@ -38,21 +43,25 @@ def load_music_data():
         # Categorized by Language/Era
         'Language_Genre': [
             'English/Classic', 'English/Classic', 
+            'English/Classic', 'English/Classic',
             'English/90s', 'English/90s', 
             'English/2010s', 'English/2010s', 
             'English/2010s', 'English/Modern',
             
+            'Tamil/90s', 'Tamil/Classic', 
             'Tamil/90s', 'Tamil/90s', 'Tamil/90s', 
             'Tamil/2000s', 'Tamil/Modern', 
             'Tamil/Modern', 'Tamil/90s',
             'Tamil/2000s'
         ],
         'Popularity_Score': [
-            8.5, 8.8, 
+            8.5, 8.7,
+            8.8, 8.6,
             9.0, 9.9, 
             9.4, 9.6, 
             9.8, 9.1,
             
+            9.3, 8.4,
             8.7, 9.2, 9.5, 
             9.1, 9.7, 
             9.6, 8.9, 
@@ -61,7 +70,9 @@ def load_music_data():
         # YouTube links for playback
         'Listen': [
             'https://www.youtube.com/watch?v=D1ZYhVpgXbQ', # Singin' in the Rain
+            'https://www.youtube.com/watch?v=Q7o6w8JbT8U', # Moon River
             'https://www.youtube.com/watch?v=4fK1c1950eM', # The Sound of Silence
+            'https://www.youtube.com/watch?v=f9d6K_d4eLw', # Mrs. Robinson
             'https://www.youtube.com/watch?v=hG9E9X94T3Q', # A Whole New World
             'https://www.youtube.com/watch?v=FHG2FD4Ww7o', # My Heart Will Go On
             'https://www.youtube.com/watch?v=ZbZSe6N_BXs', # Happy
@@ -69,6 +80,8 @@ def load_music_data():
             'https://www.youtube.com/watch?v=fJ9rUzIMcZQ', # Bohemian Rhapsody
             'https://www.youtube.com/watch?v=GBwLw6gX7c8', # No Time To Die
             
+            'https://www.youtube.com/watch?v=Q6Gj-9hL5iQ', # Susanna
+            'https://www.youtube.com/watch?v=W-Lz01mGq4Q', # Senthoora Poove
             'https://www.youtube.com/watch?v=2r1p09Xb8oM', # Chinna Machan Sella Machan
             'https://www.youtube.com/watch?v=vVjV-7P_F3o', # Chinna Chinna Aasai
             'https://www.youtube.com/watch?v=sS9d-8_tLwQ', # Kadhal Rojave
@@ -117,7 +130,11 @@ def get_recommendations(preferred_genre, top_n=3):
         return pd.DataFrame({'Song': ['N/A'], 'Artist': ['N/A'], 'Language_Genre': ['N/A'], 'Listen': ['']})
 
     # Sort by Popularity_Score and return the top N
-    recommendations = filtered_songs.sort_values(by='Popularity_Score', ascending=False).head(top_n)
+    # We now take the minimum of the requested top_n and the actual number of songs available
+    max_available = len(filtered_songs)
+    n = min(top_n, max_available)
+
+    recommendations = filtered_songs.sort_values(by='Popularity_Score', ascending=False).head(n)
     
     # Return all necessary columns, including 'Listen'
     return recommendations[['Song', 'Artist', 'Language_Genre', 'Listen']]
@@ -127,7 +144,6 @@ with st.sidebar:
     st.header("Customize Your Search")
     
     # Get unique genres/languages for the selectbox. Updated label for combined mix.
-    # Note: Genres now include the era (e.g., 'Tamil/90s', 'English/Classic')
     genres = ['Top Tamil & English Mix (Combined)'] + sorted(df['Language_Genre'].unique().tolist())
 
     # Widget for user to select a genre/language
@@ -139,7 +155,9 @@ with st.sidebar:
     # Widget for user to select how many songs they want
     num_recommendations = st.slider(
         '2. How many top songs do you want to see?',
-        min_value=1, max_value=5, value=3
+        min_value=1, 
+        max_value=20, # Increased max value to allow all songs to be displayed
+        value=5      # Default value set to 5
     )
     
 # --- 5. Generate and Display Recommendations ---
@@ -172,7 +190,7 @@ if st.button(f'▶️ Get {num_recommendations} Recommendations'):
             """, unsafe_allow_html=True)
             
             st.balloons()
-            st.success('Recommendations generated successfully! Enjoy your new playlist.')
+            st.success(f'Found {len(recommendations_df)} recommendations successfully! Enjoy your new playlist.')
 
 st.markdown("---")
 st.caption("Disclaimer: This is a proof-of-concept application.")

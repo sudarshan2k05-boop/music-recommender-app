@@ -136,7 +136,7 @@ def load_music_data():
             'https://www.youtube.com/watch?v=4fK1c1950eM', # The Sound of Silence
             
             'https://www.youtube.com/watch?v=hG9E9X94T3Q', # A Whole New World
-            'https://www.youtube.com/watch?v=FHG2FD4Ww7o', # My Heart Will Go On
+            'https://www.youtube.com/watch?v=9bFHsd3o1w0', # My Heart Will Go On (UPDATED LINK)
             'https://www.youtube.com/watch?v=ZbZSe6N_BXs', # Happy
             'https://www.youtube.com/watch?v=bo_efYhYU2A', # Shallow
             
@@ -144,7 +144,7 @@ def load_music_data():
             'https://www.youtube.com/watch?v=G7KNmw9l7e4', # Flowers
             'https://www.youtube.com/watch?v=1F3b1v8i2Kk', # Woke Up in Love
             'https://www.youtube.com/watch?v=D6Fv6X0e_6Y', # Bones
-            'https://www.youtube.com/watch?v=Vl3rP86xRk0', # I'm Good (Blue)
+            'https://www.youtube.com/watch?v=Vl3rP86xRk0', # I\'m Good (Blue)
             # New 2025 English Links
             'https://www.youtube.com/watch?v=new-en-A3', 
             'https://www.youtube.com/watch?v=new-en-MI8',
@@ -274,7 +274,7 @@ if st.button(f'▶️ Get {num_recommendations} Recommendations'):
             """, unsafe_allow_html=True)
             
             st.balloons()
-            # MODIFIED: Changed the dynamic count to a fixed, impressive 1 million message
+            # Success message is fixed to 1 million as requested
             st.success('1 million recommendations found successfully! Enjoy your updated playlist.')
         else:
              st.error("Could not find any recommendations for this selection.")

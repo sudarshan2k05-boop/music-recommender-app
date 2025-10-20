@@ -21,7 +21,7 @@ def load_music_data():
             'A Whole New World (Aladdin 1992)', 'My Heart Will Go On (Titanic 1997)',
             'Happy (Despicable Me 2013)', 'Shallow (A Star Is Born 2018)', 
             
-            # **LATEST ENGLISH SONGS (2023-2025)**
+            # **LATEST ENGLISH SONGS (2023-2025) - AUGMENTED**
             'Speed Drive (Barbie 2023)', 'Flowers (Miley Cyrus - Movie Playlist)', 
             'Woke Up in Love (2022/2023 Pop Hit)', 'Bones (Imagine Dragons - Movie Playlist)',
             'I\'m Good (Blue) (2023 Pop Hit)',
@@ -39,17 +39,16 @@ def load_music_data():
             'Vaseegara (Minnale 2001)', 'Enna Solla Pogirai (Kandukondain Kandukondain 2000)',
             'Vaathi Coming (Master 2021)', 'Naatu Naatu (RRR Tamil Dub 2022)', 
 
-            # **LATEST TAMIL SONGS (2023-2025) - EXPANDED**
+            # **LATEST TAMIL SONGS (2023-2025) - AUGMENTED**
             'Manasilaayo (Vettaiyan 2025)', 'Oorum Blood (Dude 2025)',
             'Naa Ready (Leo 2023)', 'Arabic Kuthu (Beast 2022)',
             'Katchi Sera (Think Indie 2024)', 'Dippam Dappam (KRKK 2022)',
             'Tum Tum (Enemy 2021)',
-            
-            # New 2025 Tamil Hits (Based on recent chart predictions)
-            'Kanimaa (2025 Chartbuster)', 'Pottala Muttaye (2025 Hit)', 
-            'Golden Sparrow (2025 Album)', 'Kannadi Poove (2025 Melody)',
-            'OG Sambavam (2025 Theme)', 'Thaniye (2025 Solo)',
-            'Kaloorum Kaathu (2025 Love Song)', 'Haiyodi (2025 Duet)'
+            # New 2025 Tamil Songs (Simulated hits from anticipated movies)
+            'Vaa Thalaivaa (Thalaivar 171 2025)', 
+            'Aayiram Kili (Indian 2 2025)',
+            'Kadhal Mazhai (Vidaamuyarchi 2025)',
+            'Vetri Nadai (Captain Miller 2 2025)' # Example sequel song
         ],
         'Artist': [
             'Gene Kelly', 'Audrey Hepburn', 'Simon & Garfunkel', 
@@ -70,16 +69,14 @@ def load_music_data():
             'Hariharan', 'Shankar Mahadevan',
             'Anirudh Ravichander', 'Rahul Sipligunj & Kaala Bhairava', 
 
-            # New Tamil Artists (2021-2025)
+            # New Tamil Artists
             'Anirudh Ravichander & Co.', 'Sai Abhyankkar & Paal Dabba',
             'Anirudh Ravichander & Vijay', 'Anirudh & Jonita Gandhi',
             'Sai Abhyankkar', 'Anirudh Ravichander & Anthony Daasan',
             'S. Thaman & Srivardhini',
-            # New 2025 Tamil Artists (Simulated composers for hits)
-            'Hiphop Tamizha', 'D. Imman', 
-            'Yuvan Shankar Raja', 'G.V. Prakash Kumar',
-            'Anirudh Ravichander', 'Sid Sriram',
-            'Harris Jayaraj', 'Santhosh Narayanan'
+            # New 2025 Tamil Artists
+            'Anirudh Ravichander', 'A.R. Rahman & Shreya Ghoshal', 
+            'Yuvan Shankar Raja', 'G.V. Prakash Kumar' 
         ],
         # Categorized by Language/Era
         'Language_Genre': [
@@ -106,8 +103,6 @@ def load_music_data():
             'Tamil/Modern-2025',
             # New 2025 Tamil Genres
             'Tamil/Modern-2025', 'Tamil/Modern-2025', 
-            'Tamil/Modern-2025', 'Tamil/Modern-2025',
-            'Tamil/Modern-2025', 'Tamil/Modern-2025',
             'Tamil/Modern-2025', 'Tamil/Modern-2025'
         ],
         'Popularity_Score': [
@@ -131,8 +126,8 @@ def load_music_data():
             9.7, 9.5,
             9.4, 9.3,
             9.2,
-            # New 2025 Tamil Popularity (Higher scores for trending hits)
-            9.8, 9.9, 9.7, 9.5, 9.8, 9.6, 9.7, 9.6
+            # New 2025 Tamil Popularity
+            9.8, 9.5, 9.6, 9.3
         ],
         # YouTube links for playback
         'Listen': [
@@ -173,15 +168,11 @@ def load_music_data():
             'https://www.youtube.com/watch?v=cM35vXkX0-g', # Katchi Sera (Indie 2024)
             'https://www.youtube.com/watch?v=gT5-W-2l_sY', # Dippam Dappam (KRKK 2022)
             'https://www.youtube.com/watch?v=b0wX3Y-hW0E',  # Tum Tum (Enemy 2021)
-            # New 2025 Tamil Links (Placeholders for trending songs)
-            'https://www.youtube.com/watch?v=new-kanimaa-2025',
-            'https://www.youtube.com/watch?v=new-pottala-2025',
-            'https://www.youtube.com/watch?v=new-golden-2025',
-            'https://www.youtube.com/watch?v=new-kannadi-2025',
-            'https://www.youtube.com/watch?v=new-og-2025',
-            'https://www.youtube.com/watch?v=new-thaniye-2025',
-            'https://www.youtube.com/watch?v=new-kaloorum-2025',
-            'https://www.youtube.com/watch?v=new-haiyodi-2025'
+            # New 2025 Tamil Links
+            'https://www.youtube.com/watch?v=new-tamil-T171',
+            'https://www.youtube.com/watch?v=new-tamil-I2',
+            'https://www.youtube.com/watch?v=new-tamil-VM',
+            'https://www.youtube.com/watch?v=new-tamil-CM2'
         ]
     }
     return pd.DataFrame(data)
@@ -198,7 +189,7 @@ st.markdown("""
     1. **Combined List:** Choose the 'Top Tamil & English Mix' option.
     2. **Separate List:** Choose a specific genre like **'Tamil/Modern-2025'** or **'English/Modern-2025'** to see the latest hits.
     
-    **Click the 'Listen' column link to play the song separately on YouTube, giving you a music player feel!**
+    **Click the 'Listen' column link to play the song separately on YouTube.**
 """)
 
 # --- 3. Recommendation Logic (Simulated AI Model) ---
@@ -249,8 +240,8 @@ with st.sidebar:
     num_recommendations = st.slider(
         '2. How many top songs do you want to see?',
         min_value=1, 
-        max_value=len(df), 
-        value=15      # Default value increased for the larger catalog
+        max_value=2000, # MAX VALUE UPDATED to 2000
+        value=10      # Default value set to 10
     )
     
 # --- 5. Generate and Display Recommendations ---
@@ -273,7 +264,6 @@ if st.button(f'▶️ Get {num_recommendations} Recommendations'):
                 recommendations_df.style.set_properties(**{'background-color': '#f0f2f6', 'color': 'black'}), 
                 use_container_width=True,
                 hide_index=True,
-                # This configuration makes the URL look like a play button, imitating a music app experience.
                 column_config={"Listen": st.column_config.LinkColumn("Listen", display_text="▶️ Play")}
             )
             
@@ -282,3 +272,13 @@ if st.button(f'▶️ Get {num_recommendations} Recommendations'):
                     Tip: Click the '▶️ Play' link in the table to open the music in a new tab.
                 </div>
             """, unsafe_allow_html=True)
+            
+            st.balloons()
+            st.success(f'Found {len(recommendations_df)} recommendations successfully! Enjoy your updated playlist.')
+        else:
+             st.error("Could not find any recommendations for this selection.")
+
+
+st.markdown("---")
+st.caption(f"Total songs in catalog: {len(df)}")
+st.caption("Disclaimer: This is a proof-of-concept application.")

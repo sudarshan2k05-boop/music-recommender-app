@@ -240,7 +240,7 @@ with st.sidebar:
     num_recommendations = st.slider(
         '2. How many top songs do you want to see?',
         min_value=1, 
-        max_value=2000, # MAX VALUE UPDATED to 2000
+        max_value=1000000, # MAX VALUE UPDATED to 1000000
         value=10      # Default value set to 10
     )
     

@@ -1,9 +1,7 @@
-AI Music Recommender Application
-
+# app.py - AI Music Recommender Application
 import streamlit as st
 import pandas as pd
 import numpy as np
-
 # --- 1. Configuration and Data Simulation ---
 # Using Streamlit's cache to load data only once for efficiency
 @st.cache_data
@@ -31,7 +29,6 @@ def load_music_data():
 
 # Load the data once
 df = load_music_data()
-
 # --- 2. Application Layout and Title ---
 st.set_page_config(page_title="Music Recommender", layout="centered")
 st.title('🎶 AI-Powered Music Recommender Prototype')
@@ -39,7 +36,6 @@ st.markdown("""
     This app simulates a music recommendation engine based on user preference and song popularity.
     Select a genre and the number of songs you want to discover!
 """)
-
 # --- 3. Recommendation Logic (Simulated AI Model) ---
 def get_recommendations(preferred_genre, top_n=3):
     """
@@ -47,36 +43,28 @@ def get_recommendations(preferred_genre, top_n=3):
     1. Filters songs by preferred genre.
     2. Ranks them by 'Popularity_Score'.
     """
-    
     # Handle the "surprise me" option
     if preferred_genre == "All Genres (Surprise Me!)":
         filtered_songs = df
     else:
         # Filter songs based on the user's preferred genre
         filtered_songs = df[df['Genre'] == preferred_genre]
-
     if filtered_songs.empty:
         st.warning(f"No songs found in the '{preferred_genre}' category.")
         return pd.DataFrame({'Song': ['N/A'], 'Artist': ['N/A'], 'Genre': ['N/A']})
-
     # Sort by Popularity_Score and return the top N
     recommendations = filtered_songs.sort_values(by='Popularity_Score', ascending=False).head(top_n)
-    
     return recommendations[['Song', 'Artist', 'Genre']]
-
 # --- 4. User Input Widgets in Sidebar ---
 with st.sidebar:
     st.header("Customize Your Search")
-    
     # Get unique genres for the selectbox
     genres = ['All Genres (Surprise Me!)'] + sorted(df['Genre'].unique().tolist())
-
     # Widget for user to select a genre
     selected_genre = st.selectbox(
         '1. Select your preferred genre:',
         genres
     )
-
     # Widget for user to select how many songs they want
     num_recommendations = st.slider(
         '2. How many top songs do you want to see?',
